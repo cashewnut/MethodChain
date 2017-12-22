@@ -18,18 +18,9 @@ public class Method {
 	private String methodName;
 
 	private List<String> field = new ArrayList<String>();
-	
-	private Method(){
-		
-	}
 
-	private Method(Method origin) {
-		this.id = origin.id;
-		this.projectName = origin.projectName;
-		this.packageName = origin.packageName;
-		this.className = origin.className;
-		this.methodName = origin.methodName;
-		this.field = origin.field;
+	public Method() {
+
 	}
 
 	public Integer getId() {
@@ -59,19 +50,40 @@ public class Method {
 	public List<String> getField() {
 		return field;
 	}
-	
-	/*public String fieldString(){
-		if(field.isEmpty())
-			return null;
-		String fieldString = field.stream().map((field)->field).reduce((sum,field)->sum + "," + field).get();
-		return fieldString;
-	}*/
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setLabel(List<String> label) {
+		this.label = label;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
+
+	public void setMethodName(String methodName) {
+		this.methodName = methodName;
+	}
+
+	public void setField(List<String> field) {
+		this.field = field;
+	}
 
 	public static class Builder {
 
 		private Method target;
-		
-		public Builder(){
+
+		public Builder() {
 			target = new Method();
 		}
 
@@ -81,7 +93,8 @@ public class Method {
 		}
 
 		public Builder label(List<String> labels) {
-			target.label.addAll(labels);
+			if (labels != null)
+				target.label.addAll(labels);
 			return this;
 		}
 
@@ -111,7 +124,8 @@ public class Method {
 		}
 
 		public Builder field(List<String> fields) {
-			target.field.addAll(fields);
+			if (fields != null)
+				target.field.addAll(fields);
 			return this;
 		}
 
@@ -119,7 +133,5 @@ public class Method {
 			return target;
 		}
 	}
-	
-	
 
 }

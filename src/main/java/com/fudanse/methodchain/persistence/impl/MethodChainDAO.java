@@ -7,7 +7,6 @@ import java.sql.Statement;
 import com.alibaba.fastjson.JSON;
 import com.fudanse.methodchain.enums.CypherStatment;
 import com.fudanse.methodchain.model.Method;
-import com.fudanse.methodchain.model.MethodSearch;
 import com.fudanse.methodchain.persistence.IMethodChainDAO;
 import com.fudanse.methodchain.util.DBUtil;
 
@@ -45,19 +44,19 @@ public class MethodChainDAO implements IMethodChainDAO {
 	}
 
 	@Override
-	public Method searchMethod(MethodSearch ms) {
-		Method method = null;
+	public Method searchMethod(Method method) {
+		Method m = null;
 		try{
 			Connection con = DBUtil.getConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(CypherStatment.getSearchCypher(ms));
+			ResultSet rs = stmt.executeQuery(CypherStatment.getSearchCypher(method));
 			if(rs.next()){
-				method = JSON.parseObject(rs.getString("n"),Method.class);
+				m = JSON.parseObject(rs.getString("n"),Method.class);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return method;
+		return m;
 	}
 
 }

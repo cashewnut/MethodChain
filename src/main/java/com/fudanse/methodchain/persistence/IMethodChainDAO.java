@@ -1,7 +1,6 @@
 package com.fudanse.methodchain.persistence;
 
 import com.fudanse.methodchain.model.Method;
-import com.fudanse.methodchain.model.MethodSearch;
 
 public interface IMethodChainDAO {
 
@@ -9,6 +8,6 @@ public interface IMethodChainDAO {
 
 	public boolean saveChain(int left, int right);
 	
-	public Method searchMethod(MethodSearch ms);
+	public Method searchMethod(Method method);
 
 }

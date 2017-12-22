@@ -17,7 +17,7 @@ public class GexfParser {
 
 	public GexfParser(String path) {
 		this.file = new File(path);
-		projectName = file.getName().split(".")[0];
+		projectName = file.getName().split("[.]")[0];
 	}
 
 	public GexfParser(File file) {
@@ -46,19 +46,22 @@ public class GexfParser {
 					if (attr.getName().equals("target"))
 						target = attr.getValue();
 				}
-				if (source.startsWith("<com.") || target.startsWith("<com.")) {
-					SourceTargetPair stp = new SourceTargetPair();
-					stp.setProject(projectName);
-					stp.setSource(source);
-					stp.setTarget(target);
-					stps.add(stp);
-				}
+				SourceTargetPair stp = new SourceTargetPair();
+				stp.setProject(projectName);
+				stp.setSource(source);
+				stp.setTarget(target);
+				stps.add(stp);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return stps;
+	}
+
+	public static void main(String[] args) {
+		GexfParser g = new GexfParser("/Users/xiyaoguo/Desktop/WorldClock.gexf");
+		g.getSourceTargetPairList();
 	}
 
 }

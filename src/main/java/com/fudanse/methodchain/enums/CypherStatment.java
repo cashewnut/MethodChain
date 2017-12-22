@@ -1,7 +1,6 @@
 package com.fudanse.methodchain.enums;
 
 import com.fudanse.methodchain.model.Method;
-import com.fudanse.methodchain.model.MethodSearch;
 
 public class CypherStatment {
 
@@ -19,7 +18,7 @@ public class CypherStatment {
 		return "Start a=node(" + left + "),b=node(" + right + ") create (a)-[r:call]->(b)";
 	}
 
-	public static String getSearchCypher(MethodSearch ms) {
+	public static String getSearchCypher(Method method) {
 		String cypher = "";
 		return cypher;
 	}
