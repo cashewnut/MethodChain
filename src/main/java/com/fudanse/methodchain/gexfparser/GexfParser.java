@@ -22,7 +22,7 @@ public class GexfParser {
 
 	public GexfParser(File file) {
 		this.file = file;
-		projectName = file.getName().split(".")[0];
+		projectName = file.getName().split("[.]")[0];
 	}
 
 	public List<SourceTargetPair> getSourceTargetPairList() {

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Method {
 
-	private Integer id;
+	private Long id;
 
 	private List<String> label = new ArrayList<String>();
 
@@ -17,13 +17,13 @@ public class Method {
 
 	private String methodName;
 
-	private List<String> field = new ArrayList<String>();
+	private String field;
 
 	public Method() {
 
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -47,11 +47,11 @@ public class Method {
 		return methodName;
 	}
 
-	public List<String> getField() {
+	public String getField() {
 		return field;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,7 +75,7 @@ public class Method {
 		this.methodName = methodName;
 	}
 
-	public void setField(List<String> field) {
+	public void setField(String field) {
 		this.field = field;
 	}
 
@@ -119,13 +119,11 @@ public class Method {
 		}
 
 		public Builder field(String field) {
-			target.field.add(field);
-			return this;
-		}
-
-		public Builder field(List<String> fields) {
-			if (fields != null)
-				target.field.addAll(fields);
+			if(field == null)
+				return this;
+			if (target.field == null)
+				target.field = field;
+			target.field = target.field + "," + field;
 			return this;
 		}
 

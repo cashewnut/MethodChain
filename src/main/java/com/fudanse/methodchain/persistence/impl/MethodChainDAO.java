@@ -18,8 +18,10 @@ public class MethodChainDAO implements IMethodChainDAO {
 			Connection con = DBUtil.getConnection();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(CypherStatment.getInsertCypher(method));
-			if (rs.next())
-				returnMethod = JSON.parseObject(rs.getString("n"), Method.class);
+			if (rs.next()) {
+				String json = rs.getString("n");
+				returnMethod = JSON.parseObject(json, Method.class);
+			}
 			DBUtil.closeResultset(rs);
 			DBUtil.closeStatement(stmt);
 			DBUtil.closeConnection(con);
@@ -30,7 +32,7 @@ public class MethodChainDAO implements IMethodChainDAO {
 		return method;
 	}
 
-	public boolean saveChain(int left, int right) {
+	public boolean saveChain(long left, long right) {
 		try {
 			Connection con = DBUtil.getConnection();
 			Statement stmt = con.createStatement();
@@ -51,12 +53,39 @@ public class MethodChainDAO implements IMethodChainDAO {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(CypherStatment.getSearchCypher(method));
 			if(rs.next()){
-				m = JSON.parseObject(rs.getString("n"),Method.class);
+				String json = rs.getString("n");
+				m = JSON.parseObject(json,Method.class);
 			}
+			DBUtil.closeResultset(rs);
+			DBUtil.closeStatement(stmt);
+			DBUtil.closeConnection(con);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return m;
+	}
+
+	@Override
+	public boolean searchChain(long left, long right) {
+		try {
+			Connection con = DBUtil.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(CypherStatment.getSearchCypher(left, right));
+			if (rs.next())
+				return true;
+			DBUtil.closeResultset(rs);
+			DBUtil.closeStatement(stmt);
+			DBUtil.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static void main(String[] args) {
+		String json = "{'id':17388, 'labels':['methodcall'],'methodName':'<clinit>', 'className':'WorldClockActivity', 'packageName':'com.irahul.worldclock', 'projectName':'WorldClock'}";
+		Method m = JSON.parseObject(json,Method.class);
+		System.out.println();
 	}
 
 }
